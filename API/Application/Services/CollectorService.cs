@@ -1,45 +1,23 @@
 ﻿using API.Application.Clients;
-using RestSharp;
+using API.Application.Enums;
+using API.Application.Responses;
 
 namespace CollectorService.Services
 {
     public class CollectorService
+        (
+        ImageAnalysisClient _imageAnalysisClient, CameraClient _cameraClient,
+        SectionClient _sectionClient, FaceRecognitionClient _faceRecognitionClient, AlertClient _alertClient
+        ) 
     {
-        private readonly ImageAnalysisClient _imageAnalysisClient;
-        public CollectorService(ImageAnalysisClient imageAnalysisClient ) 
-        {
-            _imageAnalysisClient = imageAnalysisClient;
-        }
-
-
-       
-
-        //private async Task<IResponse> GetResponse(string url, Frame frame)
+        //public async Task<CameraGetResponse> GetFrameAsync(string serviceName, HttpMethodEnum httpMethod)
         //{
-        //    var client = new RestClient(url);
+        //    return  _cameraClient.PostFramesAsync(, HttpMethodEnum.Get);
+        //}
 
-        //    var request = new RestRequest()
-        //    {
-        //        Method = Method.Post,
-        //        RequestFormat = DataFormat.Json
-        //    };
-
-        //    request.AddBody(frame);
-
-        //    try
-        //    {
-        //        var response = await client.ExecuteAsync<FaceRecognitionResponse>(request);
-                
-        //        if (response.IsSuccessful && response.Data != null)
-        //        {
-        //            return response.Data;
-        //        }
-
-        //        return response.Data;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new FaceRecognitionResponse();
-        //    }
+        public Task<T> SendAsync<T>(string serviceName, HttpMethodEnum httpMethod)
+        {
+            throw new NotImplementedException();
         }
     }
+}

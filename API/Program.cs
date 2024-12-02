@@ -1,4 +1,7 @@
 
+using API.Application.Clients;
+using API.Application.Services;
+
 namespace API
 {
     public class Program
@@ -7,17 +10,13 @@ namespace API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            builder.Services.AddScoped<IService, CollectorService>();
+            builder.Services.AddScoped<CameraService>();
+            builder.Services.AddScoped<CameraClient>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-
             app.UseAuthorization();
-
 
             app.MapControllers();
 

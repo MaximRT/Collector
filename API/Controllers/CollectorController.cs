@@ -1,18 +1,14 @@
-﻿using CollectorService.Enums;
-using CollectorService.Interfaces;
+﻿using API;
+using API.Application.Enums;
+using API.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CollectorService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class FrameController : ControllerBase
+    public class CollectorController() : ControllerBase
     {
-        private readonly IService _service;
-        public FrameController(IService service)
-        {
-            _service = service;
-        }
 
         [HttpPost("frame")]
         public async Task<IActionResult> SendFrameAsync([FromBody] Frame frame)
@@ -22,7 +18,8 @@ namespace CollectorService.Controllers
                 return BadRequest("Invalid frame data.");
             }
 
-            await _service.Send(ServiceDestinationEnum.Image, frame);
+            //var result = await _service.SendAsync<CameraGetResponse>("CameraService", HttpMethodEnum.Get);
+
 
             return StatusCode(200, "Sending...");
         }

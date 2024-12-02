@@ -1,28 +1,46 @@
-﻿using API.Application.Enums;
+﻿using API.Application.Requests;
+using Newtonsoft.Json;
+using RestSharp;
 
 namespace API.Abstractions
 {
-    public abstract class BaseClient
+    public abstract class BaseClient(IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration = configuration;
 
-        protected abstract string ServiceName { get; set; }
+        public virtual string ServiceName { get; set; }
 
-        public BaseClient(IConfiguration configuration)
+        public string GetMethodByName(string methodName)
         {
-            _configuration = configuration;
+            return _configuration.GetSection("MethodUrls").GetSection($"{ServiceName}").GetSection($"{methodName}").Value;
         }
 
-        public virtual string GetMethodByName(string serviceName, string methodName) 
+        public string GetServiceUrl(string serviceName)
         {
-            return _configuration[$"MethodUrls:{serviceName}:{methodName}"];
+            return _configuration.GetSection($"ServiceUrls").GetSection($"{serviceName}").Value;
         }
 
-        public virtual string GetServiceUrl(string serviceName)
+        public async Task<T> PostAsync<T>(string url, PostRequest requestDto) 
         {
-            return _configuration[$"ServiceUrls:{serviceName}"];
-        }
+            var client = new RestClient(url);
 
-        protected abstract Task<T> SendAsync<T>(T dto, HttpMethodEnum httpMethod) where T: class; 
+            var request = new RestRequest()
+            {
+                 Method = Method.Post,
+            };
+
+            request.AddJsonBody(requestDto.Body);
+
+            var response = await client.PostAsync(request);
+
+            if (response.IsSuccessful)
+            {
+                return JsonConvert.DeserializeObject<T>(response.Content);
+            }
+            else
+            {
+                throw new Exception("Произошла ошибка во время исполнения post запроса");
+            }
+        }
     }
 }
