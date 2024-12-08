@@ -1,23 +1,28 @@
-﻿using API.Application.Clients;
-using API.Application.Enums;
+﻿using API.Application.Requests;
 using API.Application.Responses;
+using API.Domain;
 
-namespace CollectorService.Services
+namespace API.Application.Services
 {
     public class CollectorService
-        (
-        ImageAnalysisClient _imageAnalysisClient, CameraClient _cameraClient,
-        SectionClient _sectionClient, FaceRecognitionClient _faceRecognitionClient, AlertClient _alertClient
-        ) 
+        (CameraService cameraService, ImageAnalysisService imageAnalysisService) 
     {
-        //public async Task<CameraGetResponse> GetFrameAsync(string serviceName, HttpMethodEnum httpMethod)
-        //{
-        //    return  _cameraClient.PostFramesAsync(, HttpMethodEnum.Get);
-        //}
+        private readonly CameraService _cameraService = cameraService;
+        private readonly ImageAnalysisService _imageAnalysisService = imageAnalysisService;
 
-        public Task<T> SendAsync<T>(string serviceName, HttpMethodEnum httpMethod)
+        public async Task<ImageAnalysisResponse> SendFrameToAnalysService(Frame frame)
         {
-            throw new NotImplementedException();
-        }
+            var request = new ImageAnalysisRequest()
+            {
+                TimeStamp = frame.Timestamp,
+                Image = frame.Image,
+                Section = frame.Section,
+                Event = frame.Event,
+                Destination = frame.Destination,
+                FrameId = frame.FrameId
+            };
+
+           return await _imageAnalysisService.SendFrameAsync(request);
+        } 
     }
 }

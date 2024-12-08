@@ -1,4 +1,6 @@
-﻿namespace API.Responses
+﻿using API.Domain;
+
+namespace API.Responses
 {
     public class ImageResponse
     {

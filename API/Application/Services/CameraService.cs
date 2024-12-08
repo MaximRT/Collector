@@ -4,13 +4,9 @@ using API.Application.Responses;
 
 namespace API.Application.Services
 {
-    public class CameraService
+    public class CameraService(CameraClient cameraClient)
     {
-        private readonly CameraClient _cameraClient;
-        public CameraService(CameraClient cameraClient)
-        {
-            _cameraClient = cameraClient;
-        }
+        private readonly CameraClient _cameraClient = cameraClient;
 
         public async Task<CameraPostResponse> SendFrameObjects(CameraPostRequest requestDto, string toggle)
         {

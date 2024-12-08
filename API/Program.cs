@@ -13,6 +13,9 @@ namespace API
             builder.Services.AddControllers();
             builder.Services.AddScoped<CameraService>();
             builder.Services.AddScoped<CameraClient>();
+            builder.Services.AddScoped<CollectorService>();
+            builder.Services.AddScoped<ImageAnalysisService>();
+            builder.Services.AddScoped<ImageAnalysisClient>();
 
             var app = builder.Build();
 

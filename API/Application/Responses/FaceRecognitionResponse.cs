@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using API.Domain;
+using Newtonsoft.Json;
 
-namespace API.Responses
+namespace API.Application.Responses
 {
     public class FaceRecognitionResponse
     {
@@ -10,7 +11,7 @@ namespace API.Responses
 
         [JsonProperty("known-persons")]
         public List<Person> Persons { get; set; }
-        
+
         [JsonProperty("frame_uuid")]
         public Guid FrameId { get; set; }
         public string Image { get; set; }

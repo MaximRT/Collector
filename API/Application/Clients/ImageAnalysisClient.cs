@@ -1,10 +1,6 @@
 ﻿using API.Abstractions;
-using API.Application.Dto;
-using API.Application.Enums;
 using API.Application.Requests;
-using API.Application.Responses;
 using Newtonsoft.Json;
-using RestSharp;
 
 namespace API.Application.Clients
 {
@@ -15,31 +11,22 @@ namespace API.Application.Clients
             get => "ImageAnalysisService";
         }
 
-        //public async Task<ImageAnalysisResponse> SendAsync(ImageAnalysisRequestDto dto, HttpMethodEnum httpMethod)
-        //{
-        //    switch (httpMethod)
-        //    {
-        //        case HttpMethodEnum.Get:
-        //            return new ImageAnalysisResponse();
-        //        case HttpMethodEnum.Post:
-        //            {
-        //                var request = new PostRequest()
-        //                {
-        //                    MethodName = GetMethodByName("frame"),
-        //                    Parameters = null,
-        //                    Headers = null,
-        //                    Body = JsonConvert.SerializeObject(dto)
-        //                };
+        public async Task<T> SendFrameAsync<T>(ImageAnalysisRequest dto)
+        {
+            var baseUrl = GetServiceUrl(ServiceName);
+            var methodUrl = GetMethodByName("frame");
 
-        //                return await SendAsync<ImageAnalysisResponse>(request, httpMethod);
-        //            }
-        //        case HttpMethodEnum.Put:
-        //            return new ImageAnalysisResponse();
-        //        case HttpMethodEnum.Delete:
-        //            return new ImageAnalysisResponse();
-        //        default:
-        //            return new ImageAnalysisResponse();
-        //    }
-        //}
+            var url = $"{baseUrl}/{methodUrl}";
+
+            dto.FrameId = Guid.Parse("7d72b8cc-7f6d-4ccd-af27-2a1a55a38b62");
+
+            var request = new PostRequest()
+            {
+                 Body = JsonConvert.SerializeObject(dto)
+            };
+
+            return await PostAsync<T>(url, request);
+        }
+
     }
 }

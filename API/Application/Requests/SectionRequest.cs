@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using API.Domain;
+using Newtonsoft.Json;
 
 namespace API.Application.Requests
 {
