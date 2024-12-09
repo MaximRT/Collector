@@ -13,19 +13,12 @@ namespace API.Application.Clients
 
         public async Task<T> SendFrameAsync<T>(ImageAnalysisRequest dto)
         {
-            var baseUrl = GetServiceUrl(ServiceName);
-            var methodUrl = GetMethodByName("frame");
+            var url = GetServiceUrl(ServiceName);
+            var methodName = GetMethodByName("frame");
 
-            var url = $"{baseUrl}/{methodUrl}";
+            var body = JsonConvert.SerializeObject(dto);
 
-            dto.FrameId = Guid.Parse("7d72b8cc-7f6d-4ccd-af27-2a1a55a38b62");
-
-            var request = new PostRequest()
-            {
-                 Body = JsonConvert.SerializeObject(dto)
-            };
-
-            return await PostAsync<T>(url, request);
+            return await PostAsync<T>(url, methodName, body);
         }
 
     }

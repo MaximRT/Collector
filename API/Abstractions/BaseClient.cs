@@ -1,4 +1,5 @@
 ﻿using API.Application.Requests;
+using API.Domain;
 using Newtonsoft.Json;
 using RestSharp;
 
@@ -20,18 +21,15 @@ namespace API.Abstractions
             return _configuration.GetSection($"ServiceUrls").GetSection($"{serviceName}").Value;
         }
 
-        public async Task<T> PostAsync<T>(string url, PostRequest requestDto) 
+        public async Task<T> GetAsync<T>(string url, string methodName)
         {
-            var client = new RestClient(url);
+            var client = new RestClient(new Uri(url));
 
-            var request = new RestRequest()
-            {
-                 Method = Method.Post,
-            };
+            var request = new RestRequest(methodName, Method.Get);
 
-            request.AddJsonBody(requestDto.Body);
+            request.AddHeader("Content-Type", "application/json");
 
-            var response = await client.PostAsync(request);
+            var response = await client.ExecuteAsync<T>(request);
 
             if (response.IsSuccessful)
             {
@@ -39,7 +37,30 @@ namespace API.Abstractions
             }
             else
             {
-                throw new Exception("Произошла ошибка во время исполнения post запроса");
+                throw new Exception($"Ошибка {response.StatusCode}: {response.Content}");
+            }
+        }
+
+
+        public async Task<T> PostAsync<T>(string url, string methodName, string body) 
+        {
+            var client = new RestClient(url);
+
+            var request = new RestRequest(methodName, Method.Post);
+
+            request.AddHeader("Content-Type", "application/json");
+
+            request.AddJsonBody(body);
+
+            var response = await client.ExecuteAsync<T>(request);
+
+            if (response.IsSuccessful)
+            {
+                return JsonConvert.DeserializeObject<T>(response.Content);
+            }
+            else
+            {
+                throw new Exception($"Ошибка {response.StatusCode}: {response.Content}");
             }
         }
     }

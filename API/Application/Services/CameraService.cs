@@ -8,9 +8,9 @@ namespace API.Application.Services
     {
         private readonly CameraClient _cameraClient = cameraClient;
 
-        public async Task<CameraPostResponse> SendFrameObjects(CameraPostRequest requestDto, string toggle)
-        {
-           return await _cameraClient.PostFramesAsync<CameraPostResponse>(requestDto, toggle);
-        }
+        //public async Task<CameraPostResponse> SendFrameObjects(CameraPostRequest requestDto, string toggle)
+        //{
+        //    return await _cameraClient.PostFramesAsync<CameraPostResponse>(requestDto, toggle);
+        //}
     }
 }

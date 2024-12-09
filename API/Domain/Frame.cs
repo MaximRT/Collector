@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace API.Domain
 {
@@ -9,7 +9,7 @@ namespace API.Domain
         public int Section { get; set; }
         public string Event { get; set; }
 
-        [JsonProperty("frame_uuid")]
+        [JsonPropertyName("frame_uuid")]
         public Guid FrameId { get; set; }
         public string? Destination { get; set; }
     }
