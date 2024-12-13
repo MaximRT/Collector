@@ -1,5 +1,6 @@
 
 using API.Application.Clients;
+using API.Application.Interfaces;
 using API.Application.Services;
 
 namespace API
@@ -11,11 +12,13 @@ namespace API
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
-            builder.Services.AddScoped<CameraService>();
-            builder.Services.AddScoped<CameraClient>();
-            builder.Services.AddScoped<CollectorService>();
-            builder.Services.AddScoped<ImageAnalysisService>();
-            builder.Services.AddScoped<ImageAnalysisClient>();
+            builder.Services.AddScoped<ICameraService, CameraService>();
+            builder.Services.AddScoped<ICameraClient, CameraClient>();
+            builder.Services.AddScoped<ICollectorService, CollectorService>();
+            builder.Services.AddScoped<IImageAnalysisService, ImageAnalysisService>();
+            builder.Services.AddScoped<IImageAnalysisClient, ImageAnalysisClient>();
+            builder.Services.AddScoped<IAlertService, AlertService>();
+            builder.Services.AddScoped<IAlertClient, AlertClient>();
 
             var app = builder.Build();
 

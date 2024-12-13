@@ -8,7 +8,6 @@ namespace API.Application.Requests
         public string Image { get; set; }
         public int Section { get; set; }
         public string Event { get; set; }
-        public string Destination { get; set; }
 
         [JsonProperty("frame_uuid")]
         public Guid FrameId { get; set; }

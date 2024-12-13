@@ -3,10 +3,8 @@ using API.Application.Responses;
 
 namespace API.Application.Interfaces
 {
-    public interface ICameraClient
+    public interface ICameraService
     {
-        Task<CameraGetResponse> GetConfigResponseAsync(CancellationToken cancellationToken = default);
         Task<CameraPostResponse> PostStreamAsync(CameraPostRequest requestDto, string toggle);
-
     }
 }

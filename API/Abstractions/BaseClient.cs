@@ -42,7 +42,7 @@ namespace API.Abstractions
         }
 
 
-        public async Task<T> PostAsync<T>(string url, string methodName, string body) 
+        public async Task<T> PostAsync<T>(string url, string methodName, string body, Dictionary<string, string> parameters = default) 
         {
             var client = new RestClient(url);
 
@@ -52,6 +52,14 @@ namespace API.Abstractions
 
             request.AddJsonBody(body);
 
+            if (parameters != null)
+            {
+                foreach (var item in parameters)
+                {
+                    request.AddQueryParameter(item.Key, item.Value);
+                }
+            }
+            
             var response = await client.ExecuteAsync<T>(request);
 
             if (response.IsSuccessful)

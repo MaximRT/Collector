@@ -13,19 +13,17 @@ namespace API.Application.Clients
             get => "CameraService";
         }
 
-        //public async Task<T> PostFramesAsync<T>(CameraPostRequest requestDto, string toggle)
-        //{
-        //    var url = GetServiceUrl(ServiceName);
-        //    var methodName = GetMethodByName("stream");
+        public async Task<CameraPostResponse> PostStreamAsync(CameraPostRequest requestDto, string toggle)
+        {
+            var url = GetServiceUrl(ServiceName);
+            var methodName = GetMethodByName("stream");
 
-        //    var request = new PostRequest()
-        //    {
-        //        Body = JsonConvert.SerializeObject(requestDto),
-        //        Parameters = new Dictionary<string, string>() { { "toggle", "on" } },
-        //    };
+            var body = JsonConvert.SerializeObject(requestDto);
 
-        //    return await PostAsync<T>(url, methodName, request);
-        //}
+            var parameters = new Dictionary<string, string>() { { "toggle", "on" } };
+
+            return await PostAsync<CameraPostResponse>(url, methodName, body, parameters);
+        }
 
         public async Task<CameraGetResponse> GetConfigResponseAsync(CancellationToken cancellationToken = default)
         {

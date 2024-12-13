@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace API.Application.Requests
 {
@@ -6,11 +7,11 @@ namespace API.Application.Requests
     {
         public string Destination { get; set; }
 
-        [JsonProperty("max-frames")]
+        [JsonPropertyName("max-frames")]
         public int? MaxFrames { get; set; }
         public double? Delay { get; set; }
         
-        [JsonProperty("extra-info")]
+        [JsonPropertyName("extra-info")]
         public string? ExtraInfo { get; set; }
     }
 }

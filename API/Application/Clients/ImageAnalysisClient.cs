@@ -1,10 +1,11 @@
 ﻿using API.Abstractions;
+using API.Application.Interfaces;
 using API.Application.Requests;
 using Newtonsoft.Json;
 
 namespace API.Application.Clients
 {
-    public class ImageAnalysisClient(IConfiguration configuration) : BaseClient(configuration)
+    public class ImageAnalysisClient(IConfiguration configuration) : BaseClient(configuration), IImageAnalysisClient
     {
         public override string ServiceName
         {

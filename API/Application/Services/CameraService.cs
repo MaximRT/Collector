@@ -1,16 +1,16 @@
-﻿using API.Application.Clients;
+﻿using API.Application.Interfaces;
 using API.Application.Requests;
 using API.Application.Responses;
 
 namespace API.Application.Services
 {
-    public class CameraService(CameraClient cameraClient)
+    public class CameraService(ICameraClient cameraClient) : ICameraService
     {
-        private readonly CameraClient _cameraClient = cameraClient;
+        private readonly ICameraClient _cameraClient = cameraClient;
 
-        //public async Task<CameraPostResponse> SendFrameObjects(CameraPostRequest requestDto, string toggle)
-        //{
-        //    return await _cameraClient.PostFramesAsync<CameraPostResponse>(requestDto, toggle);
-        //}
+        public async Task<CameraPostResponse> PostStreamAsync(CameraPostRequest requestDto, string toggle)
+        {
+            return await _cameraClient.PostStreamAsync(requestDto, toggle);
+        }
     }
 }

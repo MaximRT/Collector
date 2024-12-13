@@ -1,14 +1,15 @@
-﻿using API.Application.Clients;
+﻿using API.Application.Interfaces;
 using API.Application.Requests;
-using API.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CameraController(CameraService _service, CameraClient _cameraClient) : ControllerBase
+    public class CameraController(ICameraService cameraService) : ControllerBase
     {
+        private readonly ICameraService _cameraService = cameraService;
+
 
         [HttpGet("/frame")]
         public async Task<IActionResult> GetFrameAsync()
@@ -19,7 +20,7 @@ namespace API.Controllers
         [HttpPost("stream")]
         public async Task<IActionResult> PostStreamAsync([FromBody] CameraPostRequest request, [FromQuery] string toggle)
         {
-            //var result = await _service.SendFrameObjects(request, toggle);
+            var result = await _cameraService.PostStreamAsync(request, toggle);
 
             return Ok();
         }
@@ -33,8 +34,8 @@ namespace API.Controllers
         [HttpGet("config")]
         public async Task<IActionResult> GetConfigAsync()
         {
-            var result = await _cameraClient.GetConfigResponseAsync();
-            return Ok(result);
+            //var result = await _cameraClient.GetConfigResponseAsync();
+            return Ok();
         }
     }
 }
