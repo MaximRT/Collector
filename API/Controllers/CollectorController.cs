@@ -1,7 +1,7 @@
 ﻿using API.Application.Interfaces;
 using API.Application.Requests;
-using API.Application.Services;
 using API.Domain;
+using API.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -15,15 +15,27 @@ namespace API.Controllers
         [HttpPost("frame")]
         public async Task<IActionResult> SendFrameAsync([FromBody] Frame frame)
         {
-            if (frame == null || frame.Image == null)
+            try
             {
-                return BadRequest("Invalid frame data.");
+                await _collectorService.SendFrameToAnalysService(frame);
+
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
             }
 
-            var result = await _collectorService.SendFrameToAnalysService(frame);
+            //if (frame == null || frame.Image == null)
+            //{
+            //    return BadRequest("Invalid frame data.");
+            //}
+
+            
+            //var result = await _collectorService.SendFrameToAnalysService(frame);
 
 
-            return StatusCode(200, result);
+            //return StatusCode(200, result);
         }
 
         [HttpPost("stream")]
@@ -37,9 +49,46 @@ namespace API.Controllers
         [HttpPost("alerts")]
         public async Task<IActionResult> SendAlertAsync([FromBody] AlertPostRequest request)
         {
-            await _collectorService.SendAlertAsync(request);
+            try
+            {
+                await _collectorService.SendAlertAsync(request);
 
-            return StatusCode(200); // Нужен ли тут try ..catrh? пупу
+                return StatusCode(200); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            } 
+        }
+
+        [HttpPost("persons")]
+        public async Task<IActionResult> SendPersonsAsync([FromBody] SectionPostPersonsRequest request)
+        {
+            try
+            {
+                await _collectorService.SendPersonsAsync(request);
+
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("faceRecognitionProxy/frame")]
+        public async Task<IActionResult> SendFrameToFaceRecognition([FromBody] FaceRecognitionSendFrameRequest request)
+        {
+            try
+            {
+                await _collectorService.SendFrameToFaceRecognitionAsync(request);
+                
+                return StatusCode(200);
+            }
+            catch (Exception ex )
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

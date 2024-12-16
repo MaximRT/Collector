@@ -21,6 +21,11 @@ namespace API.Abstractions
             return _configuration.GetSection($"ServiceUrls").GetSection($"{serviceName}").Value;
         }
 
+        public string GetDestinationUrl(string methodName)
+        {
+            return _configuration.GetSection("DestinationUrls").GetSection($"{ServiceName}").GetSection($"{methodName}").Value;
+        }
+
         public async Task<T> GetAsync<T>(string url, string methodName)
         {
             var client = new RestClient(new Uri(url));

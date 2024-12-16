@@ -5,7 +5,7 @@ namespace API.Application.Requests
 {
     public class AlertPostRequest
     {
-        public string Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
         public int Section { get; set; }
         public string Event { get; set; }
 

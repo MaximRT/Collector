@@ -19,6 +19,11 @@ namespace API
             builder.Services.AddScoped<IImageAnalysisClient, ImageAnalysisClient>();
             builder.Services.AddScoped<IAlertService, AlertService>();
             builder.Services.AddScoped<IAlertClient, AlertClient>();
+            builder.Services.AddScoped<ISectionClient, SectionClient>();
+            builder.Services.AddScoped<ISectionService, SectionService>();
+            builder.Services.AddScoped<IFaceRecognitionClient, FaceRecognitionClient>();
+            builder.Services.AddScoped<IFaceRecognitionService, FaceRecognitionService>();
+
 
             var app = builder.Build();
 
