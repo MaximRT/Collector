@@ -1,4 +1,4 @@
-﻿namespace API.Application.Requests
+﻿namespace Application.Dto
 {
     public class PostRequest
     {

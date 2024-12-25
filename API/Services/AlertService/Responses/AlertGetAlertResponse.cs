@@ -1,4 +1,4 @@
-﻿using API.Domain;
+﻿using Application.Dto;
 using Newtonsoft.Json;
 
 namespace API.Application.Services.AlertService.Responses
@@ -12,7 +12,7 @@ namespace API.Application.Services.AlertService.Responses
         public string Event { get; set; }
 
         [JsonProperty("known-persons")]
-        public List<KnownPersons> KnownPersons { get; set; }
+        public List<KnownPersonDto> KnownPersons { get; set; }
 
         public string Image { get; set; }
 

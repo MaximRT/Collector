@@ -1,13 +1,14 @@
 ﻿using API.Application.Requests;
 using API.Application.Responses;
-using API.Domain;
 using API.Requests;
+using API.Services.SectionService.Requests;
+using Application.Dto;
 
-namespace API.Application.Interfaces
+namespace API.Services.CollectorService
 {
     public interface ICollectorService
     {
-        Task SendFrameToAnalysService(Frame frame);
+        Task SendFrameAsync(FrameDto frameDto);
 
         Task<CameraPostResponse> SendStreamAsync(CameraPostRequest request, string toggle);
 

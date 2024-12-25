@@ -23,5 +23,12 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut("alerts")]
+        public async Task<IActionResult> PutAlertAsync([FromBody] AlertPostRequest request)
+        {
+            await _alertService.PostAlertAsync(request);
+            return Ok();
+        }
     }
 }

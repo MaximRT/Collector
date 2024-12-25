@@ -1,5 +1,7 @@
 ﻿using API.Application.Requests;
 using API.Application.Services;
+using API.Services;
+using API.Services.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,12 +12,12 @@ namespace API.Controllers
     {
         private readonly ImageAnalysisService _imageAnalysisService = imageAnalysisService;
 
-        [HttpPost("frame")]
-        public async Task<IActionResult> PostFrameAsync([FromBody] ImageAnalysisRequest request)
-        {
-            var result = await _imageAnalysisService.SendFrameAsync(request);
-            
-            return Ok(result);
-        }
+        // [HttpPost("frame")]
+        // public async Task<IActionResult> PostFrameAsync([FromBody] ImageAnalysisRequest request)
+        // {
+        //     var result = await _imageAnalysisService.SendFrameAsync(request);
+        //     
+        //     return Ok(result);
+        // }
     }
 }

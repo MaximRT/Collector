@@ -1,7 +1,9 @@
 ﻿using API.Application.Interfaces;
 using API.Application.Requests;
+using API.Services.SectionService.Requests;
+using API.Services.SectionService.SectionClient;
 
-namespace API.Application.Services.SectionService
+namespace API.Services.SectionService
 {
     public class SectionService(ISectionClient sectionClient) : ISectionService
     {

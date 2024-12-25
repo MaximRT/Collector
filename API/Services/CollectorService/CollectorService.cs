@@ -1,43 +1,49 @@
 ﻿using API.Application.Interfaces;
 using API.Application.Requests;
 using API.Application.Responses;
+using API.Application.Services;
 using API.Application.Services.CameraService;
-using API.Application.Services.Requests;
-using API.Application.Services.SectionService;
-using API.Domain;
 using API.Requests;
+using API.Services.Requests;
+using API.Services.SectionService;
+using API.Services.SectionService.Requests;
+using Application.Dto;
+using AutoMapper;
 
-namespace API.Application.Services
+namespace API.Services.CollectorService
 {
     public class CollectorService
         (
         ICameraService cameraService, IImageAnalysisService imageAnalysisService,
         IAlertService alertService, ISectionService sectionService,
-        IFaceRecognitionService faceRecognitionService) : ICollectorService
+        IFaceRecognitionService faceRecognitionService, IMapper mapper) : ICollectorService
     {
         private readonly ICameraService _cameraService = cameraService;
         private readonly IImageAnalysisService _imageAnalysisService = imageAnalysisService;
         private readonly IAlertService _alertService = alertService;
         private readonly ISectionService _sectionService = sectionService;
         private readonly IFaceRecognitionService _faceRecognitionService = faceRecognitionService;
+        private readonly IMapper _mapper = mapper;
 
         public async Task SendAlertAsync(AlertPostRequest request)
         {
             await _alertService.PostAlertAsync(request);
         }
 
-        public async Task SendFrameToAnalysService(Frame frame)
+        public async Task SendFrameAsync(FrameDto frameDto)
         {
-            var request = new ImageAnalysisRequest()
-            {
-                TimeStamp = frame.Timestamp,
-                Image = frame.Image,
-                Section = frame.Section,
-                Event = frame.Event,
-                FrameId = frame.FrameId,
-            };
+            var requestDto =  _mapper.Map<ImageAnalysisRequestDto>(frameDto);
+            
+            // var request = new ImageAnalysisRequest()
+            // {
+            //     TimeStamp = frameDto.Timestamp,
+            //     Image = frameDto.Image,
+            //     Section = frameDto.Section,
+            //     Event = frameDto.Event,
+            //     FrameId = frameDto.FrameId,
+            // };
 
-            var result = await _imageAnalysisService.SendFrameAsync(request);
+            var result = await _imageAnalysisService.SendFrameAsync(requestDto);
 
             var requestToSection = new SectionPostPersonsRequest()
             {

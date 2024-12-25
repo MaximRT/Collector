@@ -1,16 +1,18 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace API.Domain
+namespace Application.Dto
 {
-    public class Frame
+    public class FrameDto
     {
-        public DateTime Timestamp { get; set; }
-        public string Image { get; set; }
-        public int Section { get; set; }
-        public string Event { get; set; }
-
+        public required DateTime Timestamp { get; set; }
+        public required string Image { get; set; }
+        public required int Section { get; set; }
+        public required string Event { get; set; }
+        
         [JsonPropertyName("frame_uuid")]
-        public Guid FrameId { get; set; }
-        public string? Destination { get; set; }
+        public required Guid FrameId { get; set; }
+        
+        [JsonPropertyName("extra-info")]
+        public string? ExtraInfo { get; set; }
     }
 }

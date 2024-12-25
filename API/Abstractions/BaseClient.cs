@@ -1,6 +1,4 @@
-﻿using API.Application.Requests;
-using API.Domain;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
 
 namespace API.Abstractions
@@ -13,17 +11,28 @@ namespace API.Abstractions
 
         public string GetMethodByName(string methodName)
         {
-            return _configuration.GetSection("MethodUrls").GetSection($"{ServiceName}").GetSection($"{methodName}").Value;
+            return _configuration
+                .GetSection("MethodUrls")
+                .GetSection($"{ServiceName}")
+                .GetSection($"{methodName}")
+                .Value!;
         }
 
         public string GetServiceUrl(string serviceName)
         {
-            return _configuration.GetSection($"ServiceUrls").GetSection($"{serviceName}").Value;
+            return _configuration
+                .GetSection($"ServiceUrls")
+                .GetSection($"{serviceName}")
+                .Value!;
         }
 
         public string GetDestinationUrl(string methodName)
         {
-            return _configuration.GetSection("DestinationUrls").GetSection($"{ServiceName}").GetSection($"{methodName}").Value;
+            return _configuration
+                .GetSection("DestinationUrls")
+                .GetSection($"{ServiceName}")
+                .GetSection($"{methodName}")
+                .Value!;
         }
 
         public async Task<T> GetAsync<T>(string url, string methodName)

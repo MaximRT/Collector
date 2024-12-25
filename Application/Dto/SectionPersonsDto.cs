@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace API.Application.Dto
+namespace Application.Dto
 {
     public class SectionPersonsDto
     {

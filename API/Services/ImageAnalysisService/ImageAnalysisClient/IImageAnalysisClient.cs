@@ -1,10 +1,9 @@
-﻿using API.Application.Requests;
-using API.Application.Services.Requests;
+﻿using Application.Dto;
 
-namespace API.Application.Services.ImageAnalysisClient
+namespace API.Services.ImageAnalysisClient
 {
     public interface IImageAnalysisClient
     {
-        Task<T> SendFrameAsync<T>(ImageAnalysisRequest dto);
+        Task<T> SendFrameAsync<T>(ImageAnalysisRequestDto dto);
     }
 }

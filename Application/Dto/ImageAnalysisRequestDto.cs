@@ -1,15 +1,14 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace API.Application.Dto
+namespace Application.Dto
 {
     public class ImageAnalysisRequestDto
     {
-        public DateTime TimeStamp { get; set; }
-        public string Image { get; set; }
-        public int Section { get; set; }
-        public string Event { get; set; }
-        public string? Destination { get; set; }
-
+        public required DateTime TimeStamp { get; set; }
+        public required string Image { get; set; }
+        public required int Section { get; set; }
+        public required string Event { get; set; }
+        
         [JsonPropertyName("frame_uuid")]
         public Guid? FrameId { get; set; }
 

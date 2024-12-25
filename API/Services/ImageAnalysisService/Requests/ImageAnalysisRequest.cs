@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace API.Application.Services.Requests
+namespace API.Services.Requests
 {
     public class ImageAnalysisRequest
     {

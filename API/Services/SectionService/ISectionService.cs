@@ -1,6 +1,7 @@
 ﻿using API.Application.Requests;
+using API.Services.SectionService.Requests;
 
-namespace API.Application.Services.SectionService
+namespace API.Services.SectionService
 {
     public interface ISectionService
     {

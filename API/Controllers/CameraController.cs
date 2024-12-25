@@ -1,5 +1,5 @@
-﻿using API.Application.Interfaces;
-using API.Application.Requests;
+﻿using API.Application.Requests;
+using API.Application.Services.CameraService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

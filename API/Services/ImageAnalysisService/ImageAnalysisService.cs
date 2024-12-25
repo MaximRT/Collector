@@ -1,15 +1,14 @@
-﻿using API.Application.Requests;
-using API.Application.Responses;
-using API.Application.Services.ImageAnalysisClient;
-using API.Application.Services.Requests;
+﻿using API.Application.Responses;
+using API.Services.ImageAnalysisClient;
+using Application.Dto;
 
-namespace API.Application.Services
+namespace API.Services
 {
     public class ImageAnalysisService(IImageAnalysisClient client) : IImageAnalysisService
     {
         private readonly IImageAnalysisClient _client = client;
 
-        public async Task<ImageAnalysisResponse> SendFrameAsync(ImageAnalysisRequest dto)
+        public async Task<ImageAnalysisResponse> SendFrameAsync(ImageAnalysisRequestDto dto)
         {
             return await _client.SendFrameAsync<ImageAnalysisResponse>(dto);
         }

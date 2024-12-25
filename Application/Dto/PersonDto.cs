@@ -1,4 +1,4 @@
-﻿namespace API.Domain
+﻿namespace Application.Dto
 {
     public class PersonDto
     {

@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using API.Domain;
+using Application.Dto;
 
 namespace API.Application.Services.AlertService.Responses
 {
@@ -12,7 +12,7 @@ namespace API.Application.Services.AlertService.Responses
         public string Event { get; set; }
 
         [JsonPropertyName("known-persons")]
-        public IEnumerable<KnownPersons> KnownPersons { get; set; }
+        public IEnumerable<KnownPersonDto> KnownPersons { get; set; }
 
         public string? Image { get; set; }
 

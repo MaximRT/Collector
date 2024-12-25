@@ -1,14 +1,14 @@
-﻿using API.Domain;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Application.Dto;
 
-namespace API.Application.Requests
+namespace API.Services.SectionService.Requests
 {
     public class SectionPostPersonsRequest
     {
         public DateTime TimeStamp { get; set; }
         public int Section { get; set; }
         public string Event { get; set; }
-        public List<Person> Persons { get; set; }
+        public List<PersonDto> Persons { get; set; }
         public string? Image { get; set; }
 
         [JsonPropertyName("frame_id")]

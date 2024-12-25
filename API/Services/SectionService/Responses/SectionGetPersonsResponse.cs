@@ -1,6 +1,6 @@
-﻿using API.Application.Dto;
+﻿using Application.Dto;
 
-namespace API.Application.Responses
+namespace API.Services.SectionService.Responses
 {
     public class SectionGetPersonsResponse
     {

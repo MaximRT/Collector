@@ -1,9 +1,10 @@
 ﻿using API.Abstractions;
 using API.Application.Interfaces;
 using API.Application.Requests;
+using API.Services.SectionService.Requests;
 using Newtonsoft.Json;
 
-namespace API.Application.Clients
+namespace API.Services.SectionService.SectionClient
 {
     public class SectionClient(IConfiguration configuration) : BaseClient(configuration), ISectionClient
     {
